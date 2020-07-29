@@ -2,9 +2,12 @@ package com.ruoyi.project.website.controller;
 
 import java.util.List;
 
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.framework.web.domain.BaseEntity;
 import com.ruoyi.project.website.domain.SysArticle;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,7 +26,7 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.framework.web.page.TableDataInfo;
 
 /**
- * 【请填写功能名称】Controller
+ * 网站文章Controller
  * 
  * @author ruoyi
  * @date 2020-07-24
@@ -36,9 +39,9 @@ public class SysArticleController extends BaseController
     private ISysArticleService sysArticleService;
 
     /**
-     * 查询【请填写功能名称】列表
+     * 查询网站文章列表
      */
-    @PreAuthorize("@ss.hasPermi('system:article:list')")
+//    @PreAuthorize("@ss.hasPermi('system:article:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysArticle sysArticle)
     {
@@ -48,10 +51,10 @@ public class SysArticleController extends BaseController
     }
 
     /**
-     * 导出【请填写功能名称】列表
+     * 导出网站文章列表
      */
     @PreAuthorize("@ss.hasPermi('system:article:export')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.EXPORT)
+    @Log(title = "网站文章", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(SysArticle sysArticle)
     {
@@ -61,7 +64,7 @@ public class SysArticleController extends BaseController
     }
 
     /**
-     * 获取【请填写功能名称】详细信息
+     * 获取网站文章详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:article:query')")
     @GetMapping(value = "/{id}")
@@ -71,32 +74,36 @@ public class SysArticleController extends BaseController
     }
 
     /**
-     * 新增【请填写功能名称】
+     * 新增网站文章
      */
     @PreAuthorize("@ss.hasPermi('system:article:add')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.INSERT)
+    @Log(title = "网站文章", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody SysArticle sysArticle)
+    public AjaxResult add(@Validated @RequestBody SysArticle sysArticle)
     {
+
+        sysArticle.setCreateBy(SecurityUtils.getUsername());
         return toAjax(sysArticleService.insertSysArticle(sysArticle));
     }
 
     /**
-     * 修改【请填写功能名称】
+     * 修改网站文章
      */
     @PreAuthorize("@ss.hasPermi('system:article:edit')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.UPDATE)
+    @Log(title = "网站文章", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody SysArticle sysArticle)
+    public AjaxResult edit(@Validated @RequestBody SysArticle sysArticle)
     {
+        System.out.println(sysArticle);
+        sysArticle.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(sysArticleService.updateSysArticle(sysArticle));
     }
 
     /**
-     * 删除【请填写功能名称】
+     * 删除网站文章
      */
     @PreAuthorize("@ss.hasPermi('system:article:remove')")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.DELETE)
+    @Log(title = "网站文章", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {

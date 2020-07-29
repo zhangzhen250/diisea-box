@@ -9,14 +9,14 @@ ruoyi:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: D:/ruoyi/uploadPath
+  profile: /home/ruoyi/uploadPath
   # 获取ip地址开关
   addressEnabled: false
 
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8080
+  port: 8085
   servlet:
     # 应用的访问路径
     context-path: /
@@ -61,7 +61,7 @@ spring:
     # 端口，默认为6379
     port: 6379
     # 密码
-    password: 
+#    password: yxym@hzksf
     # 连接超时时间
     timeout: 10s
     lettuce:
@@ -74,6 +74,7 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+    password:
 
 # token配置
 token:
@@ -112,7 +113,7 @@ xss:
   # 过滤开关
   enabled: true
   # 排除链接（多个用逗号分隔）
-  excludes: /system/notice/*
+  excludes: /system/notice/*,/system/article/*
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
   
